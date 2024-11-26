@@ -1,8 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { MailService } from './mail.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
+  const mailService = new MailService();
+  await mailService.sendMail(
+    'luciendelmar@gmail.com',
+    'Hello from NestJS!',
+    'This is a test email.',
+  );
+  await app.listen(3002);
 }
 bootstrap();
